@@ -6,3 +6,4 @@ libdtlssrtp/*.o
 libdtlssrtp/*.a
 libdtlssrtp/*.gch
 src/conf.cr
+certs/*
