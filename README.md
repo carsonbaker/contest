@@ -9,7 +9,7 @@ This is a experimental VoIP server to explore WebRTC concepts.
 1. Generate certs [todo]
 2. Configure src/conf.cr
 3. `make`
-4. `make test`
+4. `make spec`
 5. `make run`
 
 
