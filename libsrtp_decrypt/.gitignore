@@ -1,6 +1,9 @@
 # Object files
 *.o
 
+# Pre-compiled headeres
+*.h.gch
+
 # Libraries
 *.lib
 *.a

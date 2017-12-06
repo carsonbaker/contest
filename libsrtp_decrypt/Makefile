@@ -19,4 +19,4 @@ $(PCH).gch: $(PCH)
 	$(CC) $(CFLAGS) $(INCLUDE) $(SYSROOT) -o $@ $<
 
 clean:
-	-rm *.o $(TGLIB) $(TEST)
+	-rm *.o *.h.gch $(TGLIB) $(TEST)
