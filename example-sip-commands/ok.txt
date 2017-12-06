@@ -1,0 +1,23 @@
+SIP/2.0 200 OK
+Via: SIP/2.0/UDP 199.7.175.102:5060;branch=z9hG4bK1458.4edaf987.0
+Via: SIP/2.0/UDP 199.7.175.182:5060;received=199.7.175.182;branch=z9hG4bK889d071bd25b899bdd3e5ab77795a4732e2b6d42;rport=5060
+Via: SIP/2.0/TCP j33kmqv8ftfv.invalid;branch=z9hG4bK2000876
+Call-ID: asit1setmdmeilhtg36u
+From: "Carson Baker" <sip:me@carsonbaker.onsip.com>;tag=sji7sdvf2p
+To: <sip:asdf@sip.getprompter.com>
+CSeq: 8182 INVITE
+Server: CBSipStack 0.0.1
+Allow: INVITE,ACK,CANCEL,OPTIONS,BYE
+Content-Type: application/sdp
+Content-Length: 219
+
+v=0
+s=AGoodSessionForMakeGreatGlory
+c=IN IP4 52.37.77.188
+o=- 3212752027 3212752027 IN IP4 52.37.77.188
+t=0 0
+m=audio 12345 RTP/AVP 0
+a=rtcp:4001 IN IP4 52.37.77.188
+a=rtpmap:0 PCMU/8000
+a=ptime:20
+a=sendrecv

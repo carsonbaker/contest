@@ -1,0 +1,19 @@
+INVITE sip:carson@sip.getprompter.com SIP/2.0
+Record-Route: <sip:199.7.175.102;lr;ftag=a6jm94js73;did=6a9.942c0523;pr=3>
+Record-Route: <sip:199.7.175.182:5060;transport=udp;lr;ovid=36797b86>
+Record-Route: <sip:8aa9090ff0@199.7.175.182:443;transport=wss;lr;ovid=36797b86>
+Via: SIP/2.0/UDP 199.7.175.102:5060;branch=z9hG4bKca6.90635453.0
+Via: SIP/2.0/UDP 199.7.175.182:5060;received=199.7.175.182;branch=z9hG4bKc419421c2583be94b89572369117b0d85dddf4fe;rport=5060
+Via: SIP/2.0/TCP bcf026qd268b.invalid;branch=z9hG4bK4928463
+Max-Forwards: 68
+To: <sip:carson@sip.getprompter.com>
+From: "Carson Baker" <sip:me@carsonbaker.onsip.com>;tag=a6jm94js73
+Call-ID: u47kg5fm2rpkal04rug0
+CSeq: 638 INVITE
+Contact: <sip:0332p2fs*bcf026qd268b.invalid_ovob8aa9090ff0_ovid36797b86@199.7.175.102;transport=ws;ob;gr>
+Allow: ACK,CANCEL,INVITE,MESSAGE,BYE,OPTIONS,INFO,NOTIFY,REFER
+Supported: 100rel, replaces, outbound
+User-Agent: SIP.js/0.7.7 OnSIP_App/2.0.0-dev
+Content-Length: 0
+P-AOR: sip:me@carsonbaker.onsip.com
+X-DTLS: false

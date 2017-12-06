@@ -1,0 +1,38 @@
+INVITE sip:crson@sip.getprompter.com SIP/2.0
+Via: SIP/2.0/UDP 192.168.1.110:59925;branch=z9hG4bK-524287-1---50d66145d818f465;rport
+Max-Forwards: 70
+Contact: <sip:carson@192.168.1.110:59925>
+To: <sip:crson@sip.getprompter.com>
+From: "Carson"<sip:carson@sip.antisip.com>;tag=817ec07f
+Call-ID: 83369NWEzNDA5ODA2ZjIxMTM5YTU3NDI2MWJkOTE3ZGZhYWY
+CSeq: 1 INVITE
+Allow: SUBSCRIBE, NOTIFY, INVITE, ACK, CANCEL, BYE, REFER, INFO, OPTIONS, MESSAGE
+Content-Type: application/sdp
+Supported: replaces
+User-Agent: X-Lite release 4.9.7.1 stamp 83369
+Content-Length: 337
+
+v=0
+o=- 1490405058799008 1 IN IP4 192.168.1.110
+s=X-Lite release 4.9.7.1 stamp 83369
+c=IN IP4 192.168.1.110
+t=0 0
+m=audio 60940 RTP/AVP 9 8 120 0 84 101
+a=rtpmap:120 opus/48000/2
+a=fmtp:120 useinbandfec=1; usedtx=1; maxaveragebitrate=64000
+a=rtpmap:84 speex/16000
+a=rtpmap:101 telephone-event/8000
+a=fmtp:101 0-15
+a=sendrecv
+v=0
+o=- 1490405058799008 1 IN IP4 192.168.1.110
+s=X-Lite release 4.9.7.1 stamp 83369
+c=IN IP4 192.168.1.110
+t=0 0
+m=audio 60940 RTP/AVP 9 8 120 0 84 101
+a=rtpmap:120 opus/48000/2
+a=fmtp:120 useinbandfec=1; usedtx=1; maxaveragebitrate=64000
+a=rtpmap:84 speex/16000
+a=rtpmap:101 telephone-event/8000
+a=fmtp:101 0-15
+a=sendrecv

@@ -1,0 +1,19 @@
+implement rtcp
+
+TODO
+***
+
+* Twilio integration
+* Make sure mu_law_enc works
+
+* Permissions
+* Web frontend
+* Text to speech (Amazon Polly vs DeepMind using DeepWave)
+* Recording
+
+
+NOTES
+***
+
+# This SIP URI works over WebSOckets 
+# sip:thetestcall@getonsip.com

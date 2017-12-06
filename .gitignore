@@ -1,0 +1,8 @@
+prompter
+shard.lock
+lib
+.shards
+libdtlssrtp/*.o
+libdtlssrtp/*.a
+libdtlssrtp/*.gch
+src/conf.cr

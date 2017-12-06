@@ -1,0 +1,17 @@
+class Conf
+  
+  RTP_PACKET_AUDIO_WALL_TIME  = 20 # milliseconds
+
+  SERVER_IP_ADDRESS      = "127.0.0.1"
+  SERVER_LISTEN_ADDRESS  = "0.0.0.0"
+
+  RTP_PORT_RANGE         = 49151..65535
+       
+  DEFAULT_SIP_PORT       = 5060
+  API_SERVER_PORT        = 4000
+  WEB_RTC_PORT           = 3892
+  
+  WATSON_TTS_USERNAME    = ""
+  WATSON_TTS_PASSWORD    = "" 
+  
+end

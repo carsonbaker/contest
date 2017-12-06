@@ -1,0 +1,33 @@
+INVITE sip:carson@sip.getprompter.com SIP/2.0
+Record-Route: <sip:54.172.60.1:5060;lr;ftag=18924623_6772d868_7aa16893-60ce-4ae8-9dfe-dfcf4526f74e>
+CSeq: 1 INVITE
+From: <sip:hello@bilepile.pstn.twilio.com>;tag=18924623_6772d868_7aa16893-60ce-4ae8-9dfe-dfcf4526f74e
+To: <sip:carson@sip.getprompter.com>
+Max-Forwards: 65
+X-OhSip-Sas-Id: 43ceef11-5aae-48e1-b807-7a9e80e51233
+X-OhSIP-Servlet: SipCallOut
+X-OhSIP-Remote-Test-Id: sip-call-out 1895
+X-OhSIP-Test-Params: {"request-uri":"sip:+12103610152@verification.twilio.com"}
+Diversion: <sip:+12103610152@public-vip.us1.twilio.com>;reason=unconditional
+Call-ID: 9278478aaac9af23c02140aa032377d9@0.0.0.0
+Via: SIP/2.0/UDP 54.172.60.1:5060;branch=z9hG4bKc8ee.96865b94.0
+Via: SIP/2.0/UDP 172.18.12.191:5060;rport=5060;received=172.18.12.191;branch=z9hG4bK7aa16893-60ce-4ae8-9dfe-dfcf4526f74e_6772d868_850353518030577
+Contact: <sip:hello@172.18.12.191:5060;transport=udp>
+Allow: INVITE,ACK,CANCEL,OPTIONS,BYE
+User-Agent: Twilio Gateway
+X-Twilio-AccountSid: AC208a01133d9d950b325e08d84354ea0f
+Content-Type: application/sdp
+X-Twilio-CallSid: CAa5523c46dc1d597f61d37b7fff737f6e
+Content-Length: 251
+
+v=0
+o=- 439777677 439777677 IN IP4 54.172.60.102
+s=Twilio Media Gateway
+c=IN IP4 54.172.60.102
+t=2208988800 2208988800
+m=audio 19200 RTP/AVP 0 101
+a=rtpmap:0 PCMU/8000
+a=rtpmap:101 telephone-event/8000
+a=fmtp:101 0-16
+a=sendrecv
+a=ptime:20

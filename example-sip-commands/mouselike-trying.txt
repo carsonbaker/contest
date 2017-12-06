@@ -1,0 +1,9 @@
+SIP/2.0 100 Trying
+Via: SIP/2.0/UDP 192.168.1.110:59925;rport=59925;received=73.157.246.157;branch=z9hG4bK-524287-1---1a391a28c4fe6908
+Call-ID: 83369N2NiMzZlNGFjMGJhOWY2MDYyNjgwMmE1Y2NmODllMzQ
+From: "Carson" <sip:carson@sip.antisip.com>;tag=5daacc51
+To: <sip:904@mouselike.org>
+CSeq: 1 INVITE
+Server: Asterisk PBX 14.3.0
+Content-Length:  0
+
