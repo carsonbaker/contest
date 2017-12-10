@@ -15,7 +15,6 @@ Via: SIP/2.0/UDP 172.18.12.191:5060;rport=5060;received=172.18.12.191;branch=z9h
 Contact: <sip:hello@172.18.12.191:5060;transport=udp>
 Allow: INVITE,ACK,CANCEL,OPTIONS,BYE
 User-Agent: Twilio Gateway
-X-Twilio-AccountSid: AC208a01133d9d950b325e08d84354ea0f
 Content-Type: application/sdp
 X-Twilio-CallSid: CAa5523c46dc1d597f61d37b7fff737f6e
 Content-Length: 251

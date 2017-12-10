@@ -1,0 +1,7 @@
+libdtlssrtp/*.a
+libdtlssrtp/*.o
+libdtlssrtp/*.h.gch
+
+libsrtp_decrypt/*.a
+libsrtp_decrypt/*.o
+libsrtp_decrypt/*.h.gch

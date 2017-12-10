@@ -23,15 +23,9 @@ SYSROOT =
 LIBPATH = -L/usr/local/opt/openssl/lib
 LIBS = -lcrypto -lssl
 TGLIB = libdtlssrtp.a
-TEST = dtlssrtp_example
 
 .PHONY: all test clean
 all: $(TGLIB)
-
-test: $(TEST)
-
-$(TEST): example.o dsink_udp.o $(TGLIB)
-	$(CC) -o $(TEST) $^ $(LIBPATH) $(LIBS)
 
 $(TGLIB): dtls_srtp.o
 	$(AR) cr $@ $^
@@ -44,4 +38,4 @@ $(PCH).gch: $(PCH)
 	$(CC) $(CFLAGS) $(INCLUDE) $(SYSROOT) -o $@ $<
 
 clean:
-	-rm *.o $(TGLIB) $(TEST)
+	-rm *.o $(TGLIB)

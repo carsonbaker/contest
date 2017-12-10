@@ -1,12 +1,16 @@
 INCLUDE = -I/usr/local/opt/openssl/include
 PKG_CONFIG_PATH ?= /usr/local/opt/openssl/lib/pkgconfig
 
-.PHONY: libdtlsrtp
+.PHONY: libdtlssrtp
+.PHONY: libsrtp_decrypt
 
-all: libdtlsrtp prompter
+all: libsrtp_decrypt libdtlssrtp prompter
 
-libdtls:
-	$(MAKE) -C dtls
+libsrtp_decrypt:
+	$(MAKE) -C libsrtp_decrypt
+
+libdtlssrtp:
+	$(MAKE) -C libdtlssrtp
 
 quick: prompter.cr src/*.cr
 	crystal prompter.cr
