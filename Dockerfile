@@ -3,16 +3,18 @@ FROM alpine
 
 RUN wget http://public.portalier.com/alpine/julien@portalier.com-56dab02e.rsa.pub -O /etc/apk/keys/julien@portalier.com-56dab02e.rsa.pub
 RUN echo http://public.portalier.com/alpine/testing >> /etc/apk/repositories
-RUN apk update && apk add 'crystal=0.23.1-r1' gcc shards libgcrypt-dev
-RUN apk add automake alpine-sdk build-base
-RUN apk add opus-dev
-RUN apk add libxml2-dev
-RUN apk add openssl-dev
-RUN apk add libsamplerate-dev 
+RUN apk update && apk add 'crystal=0.23.1-r1' gcc shards libgcrypt-dev automake alpine-sdk build-base opus-dev libxml2-dev openssl-dev libsamplerate-dev
 
 ADD . /contest
 WORKDIR /contest
 
-RUN make all
+RUN make
 RUN make spec
-RUN make run
+
+EXPOSE 49151-65535
+EXPOSE 5060
+EXPOSE 4000
+EXPOSE 3892
+
+CMD ["make", "run"]
+
