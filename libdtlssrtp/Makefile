@@ -18,10 +18,8 @@
 PCH = dtls_srtp.h
 RANLIB = ranlib
 CFLAGS = -Wall -Wextra -fPIC -fpic -O3
-INCLUDE = -I/usr/local/opt/openssl/include 
-SYSROOT =
-LIBPATH = -L/usr/local/opt/openssl/lib
-LIBS = -lcrypto -lssl
+INCLUDE = `pkg-config --cflags openssl`
+LIBPATH = `pkg-config --libs openssl`
 TGLIB = libdtlssrtp.a
 
 .PHONY: all test clean
@@ -32,10 +30,10 @@ $(TGLIB): dtls_srtp.o
 	$(RANLIB) $@
 
 %.o: %.c $(PCH).gch
-	$(CC) $(CFLAGS) $(INCLUDE) $(SYSROOT) -c -o $@ $<
+	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
 
 $(PCH).gch: $(PCH)
-	$(CC) $(CFLAGS) $(INCLUDE) $(SYSROOT) -o $@ $<
+	$(CC) $(CFLAGS) $(INCLUDE) -o $@ $<
 
 clean:
 	-rm *.o $(TGLIB)

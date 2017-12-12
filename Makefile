@@ -1,10 +1,7 @@
-INCLUDE = -I/usr/local/opt/openssl/include
-PKG_CONFIG_PATH ?= /usr/local/opt/openssl/lib/pkgconfig
-
 .PHONY: libdtlssrtp
 .PHONY: libsrtp_decrypt
 
-all: libsrtp_decrypt libdtlssrtp prompter
+all: libsrtp_decrypt libdtlssrtp contest
 
 libsrtp_decrypt:
 	$(MAKE) -C libsrtp_decrypt
@@ -12,13 +9,16 @@ libsrtp_decrypt:
 libdtlssrtp:
 	$(MAKE) -C libdtlssrtp
 
-quick: prompter.cr src/*.cr
-	crystal prompter.cr
+sign:
+	codesign -s "My Signing Identity" -f bin/contest
 
-prompter: prompter.cr src/*.cr
+quick: contest.cr src/*.cr
+	crystal contest.cr
+
+contest: contest.cr src/*.cr
 	shards
-	PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) crystal build --release --no-debug prompter.cr
-	@du -sh prompter
+	PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) crystal build --release --no-debug contest.cr -o bin/contest
+	@du -sh bin/contest
 	
 spec: all
 	crystal spec
@@ -56,14 +56,14 @@ web_test:
 3p_sip_session:
 	pjsua --null-audio sip:904@mouselike.org 
 
-run: prompter
-	./prompter
+run: contest
+	./bin/contest
 
 clean:
-	rm -rf prompter .crystal crul .deps .shards libs
+	$(MAKE) clean -C libsrtp_decrypt
+	$(MAKE) clean -C libdtlssrtp
+	rm -rf bin/* .crystal crul .deps .shards libs
 
-PREFIX ?= /usr/local
-
-install: prompter
-	install -d $(PREFIX)/bin
-	install prompter $(PREFIX)/bin
+# install: contest
+# 	install -d $(PREFIX)/bin
+# 	install contest $(PREFIX)/bin

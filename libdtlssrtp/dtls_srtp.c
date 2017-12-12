@@ -53,16 +53,16 @@ SSL_CTX* dtls_ctx_init(
 #endif
   // TODO -- I had the following statement commented out.
   // not sure what the right thing to do is.
-  SSL_CTX_set_verify(ctx,
-		     (verify_mode & DTLS_VERIFY_FINGERPRINT)
-		     || (verify_mode & DTLS_VERIFY_CERTIFICATE) ?
-		     SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT
-		     : SSL_VERIFY_NONE,
-		     !(verify_mode & DTLS_VERIFY_CERTIFICATE) ?
-		     (cb ? cb:dtls_trivial_verify_callback) : NULL
-		     );
+  // SSL_CTX_set_verify(ctx,
+		//      (verify_mode & DTLS_VERIFY_FINGERPRINT)
+		//      || (verify_mode & DTLS_VERIFY_CERTIFICATE) ?
+		//      SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT
+		//      : SSL_VERIFY_NONE,
+		//      !(verify_mode & DTLS_VERIFY_CERTIFICATE) ?
+		//      (cb ? cb:dtls_trivial_verify_callback) : NULL
+		//      );
   
-  // SSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, NULL);
+  SSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, NULL);
 
   switch(cfg->profile) {
   case SRTP_PROFILE_AES128_CM_SHA1_80:
