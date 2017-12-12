@@ -1,4 +1,3 @@
-prompter
 shard.lock
 lib
 .shards
@@ -7,6 +6,7 @@ libdtlssrtp/*.a
 libdtlssrtp/*.gch
 src/conf.cr
 
+/bin/*
 /certs/*
 /keys/*
 !/certs/.keep

@@ -1,29 +1,24 @@
-require "../graph/call"
 require "../codec/generic"
 require "./jitter_buffer"
 
 module Transport
-  
   abstract class Generic
-    
-    property! client_addr    : Socket::IPAddress?
-    getter    rtp_port       : Int32
-    getter    rtp_socket     : UDPSocket
+    property! client_addr : Socket::IPAddress?
+    getter rtp_port : Int32
+    getter rtp_socket : UDPSocket
     # getter rtcp_socket                   : Socket
 
     @seq_no = 0
     @@used_rtp_ports = [] of Int32
-    
+
     def handle_rtp(payload : Bytes)
       header_size = 12
-      header = payload[0,header_size]
-      seq_no = IO::ByteFormat::NetworkEndian.decode(UInt16, header[2,2]).to_i32 # 2 bytes
-      @jitter_buffer.feed(payload[header_size,payload.size - header_size], seq_no)
-
+      header = payload[0, header_size]
+      seq_no = IO::ByteFormat::NetworkEndian.decode(UInt16, header[2, 2]).to_i32 # 2 bytes
+      @jitter_buffer.feed(payload[header_size, payload.size - header_size], seq_no)
     end
-    
+
     def form_rtp(payload : Bytes) : Bytes
-    
       data = Bytes.new(payload.size + 12)
 
       # ##  Details on RTP headers are here:
@@ -73,76 +68,72 @@ module Transport
       end
     end
 
-    def initialize(@call : Graph::Call, @encoder : Codec::Generic, @media_profile_pt : Int32)
-      
+    def initialize(@encoder : Codec::Generic, @media_profile_pt : Int32)
       @rtp_port = Generic.alloc_random_rtp_port
       @teardown = false
-      
+
       @jitter_buffer = JitterBuffer.new
       @jitter_buffer.on_pump { |data|
         # decode it
         raw = @encoder.decode(data)
-        @call.call_handler.queue_incoming_media(raw)
+      # TODO -- fix! fix! fix ! @call.handler.queue_incoming_media(raw)
       }
-      
+
       @rtp_socket = UDPSocket.new
-      @rtp_socket.reuse_address   = true
-      @rtp_socket.reuse_port      = true
-      @rtp_socket.read_timeout    = 5
-      @rtp_socket.bind(Conf::SERVER_LISTEN_ADDRESS, @rtp_port)  
-      
+      @rtp_socket.reuse_address = true
+      @rtp_socket.reuse_port = true
+      @rtp_socket.read_timeout = 5
+      @rtp_socket.bind(Conf::SERVER_LISTEN_ADDRESS, @rtp_port)
+
       puts "Listening on port #{@rtp_port}..."
     end
-    
+
     def listen
-      while(!@teardown)
+      # can throw a IO::Timeout
+      while (!@teardown)
         data = Bytes.new(1024)
         begin
           byte_count, address = @rtp_socket.receive(data)
-          # @client_addr ||= Socket::IPAddress.new(address.address, 34620) 
+          # @client_addr ||= Socket::IPAddress.new(address.address, 34620)
           @client_addr = address
           data = data[0, byte_count]
           process(data, address)
-        rescue IO::Timeout
-          @call.destroy
         rescue errno : Errno
           L.error errno
         end
       end
     end
-    
+
     def process(data : Bytes, addr : Socket::IPAddress)
       # To be implemented by subclasses
     end
-    
+
     def send_audio(audio : Slice(Int16))
       inc_seq_no
       rtp_data = encode_and_rtp(audio)
       _send_audio(rtp_data)
     end
-    
+
     def observe_silence
       inc_seq_no
     end
-    
+
     def _send_audio(rtp_data : Bytes)
       # To be implemented by subclasses
     end
-    
+
     def inc_seq_no
       @seq_no += 1
     end
-    
+
     def encode_and_rtp(audio : Slice(Int16)) : Bytes
       encoded_audio = @encoder.encode(audio)
       return form_rtp(encoded_audio)
     end
-    
+
     def finalize
       @teardown = true
       @@used_rtp_ports.delete(@rtp_port)
     end
-    
   end
-  
 end

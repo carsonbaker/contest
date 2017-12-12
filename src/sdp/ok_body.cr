@@ -2,28 +2,25 @@ require "../graph/call"
 require "../transport/generic"
 
 module SDP
-
   class OkBody
-    
     SDP_VERSION      = 0
     SDP_SESSION_NAME = "AGoodSessionForMakeGreatGlory"
 
     def initialize(for_websocket : Bool, call : Graph::Call)
-      
-      @session          = {} of String => String
-      @time             = {} of String => String
-      @media            = [] of String
-      
-      rtp_port          = call.transport.rtp_port
-      rtcp_port         = rtp_port + 1
+      @session = {} of String => String
+      @time = {} of String => String
+      @media = [] of String
+
+      rtp_port = call.handler.transport.rtp_port
+      rtcp_port = rtp_port + 1
 
       random_session_id = (0...10).map { rand(9).to_s }.join
-      session_version   = 1
+      session_version = 1
 
-      @session["v"]     = SDP_VERSION.to_s
-      @session["o"]     = "- #{random_session_id} #{session_version} IN IP4 #{Conf::SERVER_IP_ADDRESS}"
-      @session["s"]     = SDP_SESSION_NAME
-      @session["c"]     = "IN IP4 #{Conf::SERVER_IP_ADDRESS}"
+      @session["v"] = SDP_VERSION.to_s
+      @session["o"] = "- #{random_session_id} #{session_version} IN IP4 #{Conf::SERVER_IP_ADDRESS}"
+      @session["s"] = SDP_SESSION_NAME
+      @session["c"] = "IN IP4 #{Conf::SERVER_IP_ADDRESS}"
 
       @time["t"] = "0 0" # (time the session is active)
 
@@ -37,30 +34,28 @@ module SDP
         # @time["m"] = "audio #{rtp_port} RTP/AVP 101"
       end
 
-      @media << "a=rtcp:#{rtcp_port} IN IP4 #{Conf::SERVER_IP_ADDRESS}"  
-      
+      @media << "a=rtcp:#{rtcp_port} IN IP4 #{Conf::SERVER_IP_ADDRESS}"
+
       if true # OPUS experiment
         @media << "a=rtpmap:101 opus/48000/2"
       end
-      
+
       if true # PCMU
-        
+
         @media << "a=rtpmap:0 PCMU/8000" # (media attribute line)
         # @media << "a=rtpmap:96 telephone-event/8000" # see https://tools.ietf.org/html/rfc4733
         # @media << "a=fmtp:96 0-16"
         # @media << "a=ptime:#{Conf::RTP_PACKET_AUDIO_WALL_TIME}"
-        
+
       end
 
-      
       @media << "a=sendrecv"
-      
+
       # We only do ICE stuff on Websocket connections...
       if for_websocket
-        
         srv_ufrag = call.server_userfrag
         srv_upass = call.server_password
-        
+
         @media << "a=setup:passive" # can be setup:active setup:passive setup:actpass or setup:holdconn
         # obtained via
         # openssl x509 -in server-cert.pem -sha1 -noout -fingerprint
@@ -69,10 +64,9 @@ module SDP
         @media << "a=rtcp-mux"
         @media << "a=ice-ufrag:#{srv_ufrag}"
         @media << "a=ice-pwd:#{srv_upass}"
-        @media << "a=candidate:0 1 udp 2130706431 #{Conf::SERVER_IP_ADDRESS} #{rtp_port} typ host" # rtp
+        @media << "a=candidate:0 1 udp 2130706431 #{Conf::SERVER_IP_ADDRESS} #{rtp_port} typ host"  # rtp
         @media << "a=candidate:0 2 udp 2130706430 #{Conf::SERVER_IP_ADDRESS} #{rtcp_port} typ host" # rtcp
       end
-      
     end
 
     def body
@@ -89,5 +83,4 @@ module SDP
       end
     end
   end
-  
 end

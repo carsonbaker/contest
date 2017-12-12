@@ -1,9 +1,8 @@
 require "../sdp/ok_body"
 require "../graph/call"
-require "./logger"
+require "../logger"
 
 module SIP
-  
   enum ResponseCmd
     TRYING
     RINGING
@@ -14,11 +13,9 @@ module SIP
   end
 
   class Responder
-
     def initialize(@call_id : String, @from : String, @to : String, @c_seq : String, @vias : Array(String), @call : Graph::Call)
-
     end
-    
+
     def reset_c_seq(str : String)
       @c_seq = str
     end
@@ -26,47 +23,41 @@ module SIP
     def generate(cmd : ResponseCmd)
       String.build do |str|
         case cmd
-          
         when ResponseCmd::TRYING
           str << "SIP/2.0 100 Trying" << "\r\n"
           str << header(cmd, 0)
-          
         when ResponseCmd::RINGING
           str << "SIP/2.0 180 Ringing" << "\r\n"
           str << header(cmd, 0)
-          
         when ResponseCmd::OK
           str << "SIP/2.0 200 OK" << "\r\n"
           str << header(cmd, 0)
-          
         when ResponseCmd::OK_SDP_WITH_ICE
           str << "SIP/2.0 200 OK" << "\r\n"
           body_str = SDP::OkBody.new(true, @call).body
           str << header(cmd, body_str.size)
           str << "\r\n"
           str << body_str
-          
         when ResponseCmd::OK_SDP
           str << "SIP/2.0 200 OK" << "\r\n"
           body_str = SDP::OkBody.new(false, @call).body
           str << header(cmd, body_str.size)
           str << "\r\n"
           str << body_str
-          
         end
         str << "\r\n"
       end
     end
-    
+
     private def header(cmd : ResponseCmd, body_size : Int)
       headers = {} of String => String
-      headers["Call-ID"]        = @call_id
-      headers["From"]           = @from
-      headers["To"]             = @to
-      headers["CSeq"]           = @c_seq
-      headers["Server"]         = "CBSipStack 0.0.1"
+      headers["Call-ID"] = @call_id
+      headers["From"] = @from
+      headers["To"] = @to
+      headers["CSeq"] = @c_seq
+      headers["Server"] = "CBSipStack 0.0.1"
       headers["Content-Length"] = body_size.to_s
-      
+
       # headers["Identity"]       = "CyI4+nAkHrH3ntmaxgr01TMxTmtjP7MASwliNRdupRI1vpkXRvZXx1ja9k3W+v1PDsy32MaqZi0M5WfEkXxbgTnPYW0jIoK8HMyY1VT7egt0kk4XrKFCHYWGCl0nB2sNsM9CG4hq+YJZTMaSROoMUBhikVIjnQ8ykeD6UXNOyfI="
       # headers["Identity-Info"]  = "http://localhost:3000/cert"
 
@@ -89,8 +80,5 @@ module SIP
         end
       end
     end
-    
-    
   end
-  
 end

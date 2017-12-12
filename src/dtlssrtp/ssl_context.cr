@@ -40,7 +40,7 @@ module DTLSSRTP
       
       # TODO - I'm not sure when to use one or the other here...
       LibSSL.ssl_ctx_set_tlsext_use_srtp(@context, "SRTP_AES128_CM_SHA1_80")
-      # LibSSL.ssl_ctx_set_tlsext_use_srtp(@@context, "SRTP_AES128_CM_SHA1_32")      
+      # LibSSL.ssl_ctx_set_tlsext_use_srtp(@@context, "SRTP_AES128_CM_SHA1_32") 
       
       # verify_mode = LibDTLSSRTP::Dtls_verify_mode::DTLS_VERIFY_FINGERPRINT
       # @cfg = LibDTLSSRTP.dtls_ctx_init(verify_mode, nil, pointerof(cfg));

@@ -125,7 +125,7 @@ module Transport
         raise "Incoming SRTP key could not be set (ret == #{ret})" if ret != 0
 
         # Tell the call handler that the call has begun
-        call.call_handler.queue_event(:start_call)
+        call.handler.queue_event(:start_call)
       end
     end
   end
