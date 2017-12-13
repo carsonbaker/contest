@@ -13,7 +13,7 @@ This is a experimental VoIP server to explore WebRTC concepts.
 5. `make run`
 
 ## Requirements
-`brew install libsamplerate opus-dev openssl`
+`brew install libsamplerate opus-dev openssl libgcrypt pcre`
 
 ## Crystal Bugs
 On Mac OS X, I had to find Crystal installation and change:

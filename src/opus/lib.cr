@@ -1,4 +1,5 @@
-@[Link(ldflags: "-lopus")]
+# @[Link(ldflags: "-lopus")]
+@[Link("opus")]
 
 lib LibOpus
 

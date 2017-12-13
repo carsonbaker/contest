@@ -2,7 +2,8 @@ PCH = srtp.h
 RANLIB = ranlib
 CFLAGS = -Wall -Wextra -fPIC -fpic -Os -g
 SYSROOT =
-LIBS = -lpcap -lgcrypt
+INCLUDE = $(shell libgcrypt-config --cflags)
+LIBS = $(shell libgcrypt-config --libs)
 TGLIB = srtp.a
 
 .PHONY: all clean

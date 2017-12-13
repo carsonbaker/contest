@@ -1,4 +1,5 @@
-@[Link(ldflags: "#{__DIR__}/../../libsrtp_decrypt/srtp.a -lgcrypt")]
+@[Link(ldflags: "`libgcrypt-config --libs`")]
+@[Link(ldflags: "#{__DIR__}/../../libsrtp_decrypt/srtp.a")]
 
 lib LibSRTPDecrypt
   

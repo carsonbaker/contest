@@ -13,7 +13,7 @@ lib LibSSL
   fun ssl_ctx_set_tlsext_use_srtp = SSL_CTX_set_tlsext_use_srtp(ctx : SSLContext, profiles : Char*)
 end
 
-@[Link(ldflags: "#{__DIR__}/../../libdtlssrtp/libdtlssrtp.a -L/usr/local/opt/openssl/lib")]
+@[Link(ldflags: "#{__DIR__}/../../libdtlssrtp/libdtlssrtp.a")]
 
 lib LibDTLSSRTP
   MASTER_KEY_LEN        = 16

@@ -1,4 +1,6 @@
-@[Link(ldflags: "-lsamplerate")]
+# @[Link(ldflags: "-lsamplerate")]
+# @[Link(ldflags: "`pkg-config samplerate --libs`")]
+@[Link("samplerate")]
 
 lib LibSampleRate
 
