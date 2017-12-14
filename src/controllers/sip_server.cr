@@ -6,11 +6,10 @@ require "../sip/session"
 
 module Controllers
   class SIPServer
-
     def listen
       # just a single thread right now
-      interface_addr = Socket::IPAddress.new(Conf::SERVER_LISTEN_ADDRESS,  Conf::DEFAULT_SIP_PORT)
-      
+      interface_addr = Socket::IPAddress.new(Conf::SERVER_LISTEN_ADDRESS, Conf::DEFAULT_SIP_PORT)
+      puts "-> SIP server listening for UDP packets on #{interface_addr}"
       # THREAD_COUNT.times do...
       session = SIP::Session.new(interface_addr)
       spawn do
@@ -18,5 +17,4 @@ module Controllers
       end
     end
   end
-  
 end

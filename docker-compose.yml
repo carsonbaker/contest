@@ -1,4 +1,0 @@
-app:
-  build: .
-  container_name: contest
-  # env_file: .env

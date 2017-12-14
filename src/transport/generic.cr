@@ -85,7 +85,7 @@ module Transport
       @rtp_socket.read_timeout = 5
       @rtp_socket.bind(Conf::SERVER_LISTEN_ADDRESS, @rtp_port)
 
-      puts "Listening on port #{@rtp_port}..."
+      L.clue "#{self.class} listening for UDP on port #{@rtp_port}..."
     end
 
     def listen

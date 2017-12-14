@@ -15,6 +15,9 @@ sign:
 quick: contest.cr src/*.cr
 	crystal contest.cr
 
+compose:
+	docker-compose up
+
 contest: contest.cr src/*.cr
 	shards
 	PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) crystal build --release --no-debug contest.cr -o bin/contest

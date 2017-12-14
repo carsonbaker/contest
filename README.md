@@ -15,6 +15,9 @@ This is a experimental VoIP server to explore WebRTC concepts.
 ## Requirements
 `brew install libsamplerate opus-dev openssl libgcrypt pcre`
 
+For testing:
+`brew install pjproject`
+
 ## Crystal Bugs
 On Mac OS X, I had to find Crystal installation and change:
 

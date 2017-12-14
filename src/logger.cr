@@ -5,7 +5,7 @@ require "logger"
 class L
   @@logger = Logger.new(STDOUT)
   @@logger.level = Logger::DEBUG
-  # @@logger.formatter = self.our_formatter
+  @@logger.formatter = self.our_formatter
 
   RESET_SEQ    = "\033[0m"
   STAR_SEQ     = "\033[1;40m"
@@ -13,13 +13,14 @@ class L
   RED_SEQ      = "\033[1;101m"
   YELLOW_SEQ   = "\033[1;93m"
   MAGENTA_SEQ  = "\033[1;34m"
+  PURPLE_SEQ   = "\033[1;35m"
   BOLD_SEQ     = "\033[1m"
 
   def self.our_formatter
     # API change in Crystal 0.23 makes severity an enum and breaks this method
-    # Logger::Formatter.new do |severity, datetime, progname, message, io|
-    #   io << severity.rjust(5) << " -- " << progname << ": " << message
-    # end
+    Logger::Formatter.new do |severity, datetime, progname, message, io|
+      io << severity.to_s.rjust(5) << " -- " << progname << ": " << message
+    end
   end
 
   def self.color(str, color)
@@ -48,10 +49,18 @@ class L
     self.color(str, MAGENTA_SEQ)
   end
 
+  def self.purple(str)
+    self.color(str, PURPLE_SEQ)
+  end
+
   ####
 
   def self.one(str)
     print str
+  end
+
+  def self.clue(str)
+    @@logger.debug(purple(str))
   end
 
   def self.info(str)
