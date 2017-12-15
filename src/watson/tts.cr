@@ -37,7 +37,7 @@ module Watson
       path = method_url("synthesize?voice=#{voice}")
 
       client = HTTP::Client.new(uri)
-      client.basic_auth(ENV["WATSON_TTS_USERNAME"], ENV["WATSON_TTS_PASSWORD"])
+      client.basic_auth(Conf::WATSON_TTS_USERNAME, Conf::WATSON_TTS_PASSWORD)
       client.connect_timeout = 5.seconds
 
       response = client.post(path, headers, body_json)
@@ -45,7 +45,7 @@ module Watson
       if response.success?
         return response.body.to_slice
       else
-        raise "Watson noped."
+        raise "Watson returned error response: #{response.body}"
       end
     end
 

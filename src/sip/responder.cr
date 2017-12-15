@@ -50,8 +50,8 @@ module SIP
     end
 
     private def header(cmd : ResponseCmd, body_size : Int)
-      srv_ip = ENV["SERVER_IP_ADDRESS"]
-      sip_port = ENV["DEFAULT_SIP_PORT"]
+      srv_ip = Conf::SERVER_IP_ADDRESS
+      sip_port = Conf::DEFAULT_SIP_PORT
 
       headers = {} of String => String
       headers["Call-ID"] = @call_id
