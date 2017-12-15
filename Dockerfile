@@ -13,5 +13,4 @@ RUN make
 
 EXPOSE 49151-65535 5060 4000 3892
 
-
 CMD ["make", "run"]

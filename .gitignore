@@ -8,5 +8,6 @@ libdtlssrtp/*.gch
 /bin/*
 /certs/*
 /keys/*
+!/bin/.keep
 !/certs/.keep
 !/keys/.keep
