@@ -8,12 +8,9 @@ RUN apk update && apk add 'crystal=0.23.1-r1' gcc shards libgcrypt-dev automake 
 ADD . /contest
 WORKDIR /contest
 
-RUN make spec
+RUN make -s
 
-EXPOSE 49151-65535
-EXPOSE 5060
-EXPOSE 4000
-EXPOSE 3892
+EXPOSE 49151-65535 5060 4000 3892
+
 
 CMD ["make", "run"]
-

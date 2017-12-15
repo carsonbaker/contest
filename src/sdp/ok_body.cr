@@ -17,7 +17,7 @@ module SDP
       random_session_id = (0...10).map { rand(9).to_s }.join
       session_version = 1
 
-      srv_ip = ENV["SERVER_IP_ADDRESS"]
+      srv_ip = Conf::SERVER_IP_ADDRESS
 
       @session["v"] = SDP_VERSION.to_s
       @session["o"] = "- #{random_session_id} #{session_version} IN IP4 #{srv_ip}"
@@ -44,7 +44,7 @@ module SDP
 
       if true # PCMU
 
-        rpawtms = ENV["RTP_PACKET_AUDIO_WALL_TIME_MS"]
+        rpawtms = Conf::RTP_PACKET_AUDIO_WALL_TIME
 
         @media << "a=rtpmap:0 PCMU/8000" # (media attribute line)
         # @media << "a=rtpmap:96 telephone-event/8000" # see https://tools.ietf.org/html/rfc4733

@@ -1,5 +1,6 @@
 require "../codec/generic"
 require "./jitter_buffer"
+require "../util/conf"
 
 module Transport
   abstract class Generic
@@ -59,7 +60,8 @@ module Transport
     end
 
     def self.alloc_random_rtp_port : Int32
-      rtp_port_range = ENV["RTP_PORT_RANGE_START"]..ENV["RTP_PORT_RANGE_END"]
+      rtp_port_range = Conf::RTP_PORT_RANGE
+
       p = rand(rtp_port_range) & ~1 # ensures an even number
       if @@used_rtp_ports.includes? p
         return self.alloc_random_rtp_port
@@ -84,7 +86,7 @@ module Transport
       @rtp_socket.reuse_address = true
       @rtp_socket.reuse_port = true
       @rtp_socket.read_timeout = 5
-      @rtp_socket.bind(ENV["SERVER_LISTEN_ADDRESS"], @rtp_port)
+      @rtp_socket.bind(Conf::SERVER_LISTEN_ADDRESS, @rtp_port)
 
       L.clue "#{self.class} listening for UDP on port #{@rtp_port}..."
     end
