@@ -4,8 +4,7 @@ lib
 libdtlssrtp/*.o
 libdtlssrtp/*.a
 libdtlssrtp/*.gch
-src/conf.cr
-
+.env
 /bin/*
 /certs/*
 /keys/*

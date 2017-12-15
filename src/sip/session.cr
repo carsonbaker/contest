@@ -58,7 +58,7 @@ module SIP
       end
 
       sip_cmd_reply_host = top_via_info[:host]
-      sip_cmd_reply_port = top_via_info[:port] || Conf::DEFAULT_SIP_PORT
+      sip_cmd_reply_port = top_via_info[:port] || ENV["DEFAULT_SIP_PORT"]
       reply_addr = Socket::IPAddress.new(sip_cmd_reply_host, sip_cmd_reply_port)
 
       if client_addr.address != reply_addr.address

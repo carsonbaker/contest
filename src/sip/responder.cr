@@ -50,6 +50,9 @@ module SIP
     end
 
     private def header(cmd : ResponseCmd, body_size : Int)
+      srv_ip = ENV["SERVER_IP_ADDRESS"]
+      sip_port = ENV["DEFAULT_SIP_PORT"]
+
       headers = {} of String => String
       headers["Call-ID"] = @call_id
       headers["From"] = @from
@@ -63,7 +66,7 @@ module SIP
 
       if [ResponseCmd::OK_SDP, ResponseCmd::OK_SDP_WITH_ICE, ResponseCmd::RINGING].includes? cmd
         headers["Allow"] = "INVITE,ACK,CANCEL,OPTIONS,BYE"
-        headers["Contact"] = "<sip:#{Conf::SERVER_IP_ADDRESS}:#{Conf::DEFAULT_SIP_PORT}>"
+        headers["Contact"] = "<sip:#{srv_ip}:#{sip_port}>"
       end
 
       if [ResponseCmd::OK_SDP, ResponseCmd::OK_SDP_WITH_ICE].includes? cmd

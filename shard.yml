@@ -4,3 +4,7 @@ description: CarsON's TElphony STack
 license: AGPL-3.0+
 authors:
   - Carson Baker <carson@carsonbaker.org>
+
+dependencies:
+  dotenv:
+      github: gdotdesign/cr-dotenv

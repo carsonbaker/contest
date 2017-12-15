@@ -17,10 +17,12 @@ module SDP
       random_session_id = (0...10).map { rand(9).to_s }.join
       session_version = 1
 
+      srv_ip = ENV["SERVER_IP_ADDRESS"]
+
       @session["v"] = SDP_VERSION.to_s
-      @session["o"] = "- #{random_session_id} #{session_version} IN IP4 #{Conf::SERVER_IP_ADDRESS}"
+      @session["o"] = "- #{random_session_id} #{session_version} IN IP4 #{srv_ip}"
       @session["s"] = SDP_SESSION_NAME
-      @session["c"] = "IN IP4 #{Conf::SERVER_IP_ADDRESS}"
+      @session["c"] = "IN IP4 #{srv_ip}"
 
       @time["t"] = "0 0" # (time the session is active)
 
@@ -34,7 +36,7 @@ module SDP
         # @time["m"] = "audio #{rtp_port} RTP/AVP 101"
       end
 
-      @media << "a=rtcp:#{rtcp_port} IN IP4 #{Conf::SERVER_IP_ADDRESS}"
+      @media << "a=rtcp:#{rtcp_port} IN IP4 #{srv_ip}"
 
       if true # OPUS experiment
         @media << "a=rtpmap:101 opus/48000/2"
@@ -42,10 +44,13 @@ module SDP
 
       if true # PCMU
 
+        rpawtms = ENV["RTP_PACKET_AUDIO_WALL_TIME_MS"]
+
         @media << "a=rtpmap:0 PCMU/8000" # (media attribute line)
         # @media << "a=rtpmap:96 telephone-event/8000" # see https://tools.ietf.org/html/rfc4733
         # @media << "a=fmtp:96 0-16"
-        # @media << "a=ptime:#{Conf::RTP_PACKET_AUDIO_WALL_TIME}"
+        #
+        # @media << "a=ptime:#{rpawtms}"
 
       end
 
@@ -64,8 +69,8 @@ module SDP
         @media << "a=rtcp-mux"
         @media << "a=ice-ufrag:#{srv_ufrag}"
         @media << "a=ice-pwd:#{srv_upass}"
-        @media << "a=candidate:0 1 udp 2130706431 #{Conf::SERVER_IP_ADDRESS} #{rtp_port} typ host"  # rtp
-        @media << "a=candidate:0 2 udp 2130706430 #{Conf::SERVER_IP_ADDRESS} #{rtcp_port} typ host" # rtcp
+        @media << "a=candidate:0 1 udp 2130706431 #{srv_ip} #{rtp_port} typ host"  # rtp
+        @media << "a=candidate:0 2 udp 2130706430 #{srv_ip} #{rtcp_port} typ host" # rtcp
       end
     end
 
